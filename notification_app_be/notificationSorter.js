@@ -41,7 +41,7 @@ export function getNotificationStats(notifications) {
     byType: {}
   };
 
-  TYPE_WEIGHTS.forEach(type => {
+  Object.keys(TYPE_WEIGHTS).forEach((type) => {
     stats.byType[type] = filterByType(notifications, type).length;
   });
 

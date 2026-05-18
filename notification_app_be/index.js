@@ -2,10 +2,18 @@ import axios from 'axios';
 import { getPriorityNotifications, getNotificationStats, filterByType } from './notificationSorter.js';
 
 const API_URL = 'http://4.224.186.213/evaluation-service/notifications';
-const API_TOKEN = process.env.NOTIFICATION_API_TOKEN || 'your-api-token-here';
+const API_TOKEN = process.env.NOTIFICATION_API_TOKEN;
+
+function ensureToken() {
+  if (!API_TOKEN || !API_TOKEN.trim()) {
+    throw new Error('Missing NOTIFICATION_API_TOKEN environment variable');
+  }
+}
 
 async function fetchNotifications() {
   try {
+    ensureToken();
+
     const response = await axios.get(API_URL, {
       headers: {
         'Authorization': `Bearer ${API_TOKEN}`,
