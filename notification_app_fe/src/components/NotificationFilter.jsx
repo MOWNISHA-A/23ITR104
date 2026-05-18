@@ -1,8 +1,3 @@
-/**
- * NotificationFilter Component
- * Provides filtering options for notifications
- */
-
 import React from 'react';
 import {
   Box,

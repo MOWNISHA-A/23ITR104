@@ -1,19 +1,9 @@
-/**
- * Stage 1: Notification Priority System
- * 
- * Main entry point for testing and demonstrating the notification sorting algorithm
- */
-
 import axios from 'axios';
 import { getPriorityNotifications, getNotificationStats, filterByType } from './notificationSorter.js';
 
-// Use your API token here - this is a protected endpoint
 const API_URL = 'http://4.224.186.213/evaluation-service/notifications';
 const API_TOKEN = process.env.NOTIFICATION_API_TOKEN || 'your-api-token-here';
 
-/**
- * Fetch notifications from the campus notification API
- */
 async function fetchNotifications() {
   try {
     const response = await axios.get(API_URL, {
@@ -34,9 +24,6 @@ async function fetchNotifications() {
   }
 }
 
-/**
- * Main function to demonstrate Stage 1 functionality
- */
 async function main() {
   console.log('═══════════════════════════════════════════════');
   console.log('  Campus Notification System - Stage 1');
@@ -44,7 +31,6 @@ async function main() {
   console.log('═══════════════════════════════════════════════\n');
 
   try {
-    // Step 1: Fetch notifications
     console.log('Step 1: Fetching notifications from API...');
     const allNotifications = await fetchNotifications();
     console.log(`Total notifications received: ${allNotifications.length}\n`);
@@ -54,7 +40,6 @@ async function main() {
       return;
     }
 
-    // Step 2: Show statistics
     console.log('Step 2: Notification Statistics');
     const stats = getNotificationStats(allNotifications);
     console.log(`Total: ${stats.total}`);
@@ -62,7 +47,6 @@ async function main() {
     console.log(`Result: ${stats.byType['Result'] || 0}`);
     console.log(`Event: ${stats.byType['Event'] || 0}\n`);
 
-    // Step 3: Get top 10 priority notifications
     console.log('Step 3: Top 10 Priority Notifications');
     console.log('(Sorted by Type Priority: Placement > Result > Event, then by Recency)\n');
     
@@ -75,7 +59,6 @@ async function main() {
       console.log('');
     });
 
-    // Step 4: Demonstrate filtering
     console.log('Step 4: Filtering Example - Top 5 Placement Notifications\n');
     const placements = filterByType(allNotifications, 'Placement');
     const topPlacements = getPriorityNotifications(placements, 5);
@@ -96,5 +79,4 @@ async function main() {
   }
 }
 
-// Run the main function
 main();

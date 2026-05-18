@@ -1,8 +1,3 @@
-/**
- * NotificationCard Component
- * Displays a single notification with type, message, and metadata
- */
-
 import React from 'react';
 import {
   Card,

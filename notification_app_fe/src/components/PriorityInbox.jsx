@@ -1,9 +1,4 @@
-/**
- * PriorityInbox Component
- * Displays top 10 priority notifications
- */
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -23,7 +18,7 @@ export default function PriorityInbox({
 }) {
   const priorityNotifs = getTopNotifications(notifications, 10);
 
-  React.useEffect(() => {
+  useEffect(() => {
     LogInfo(
       'frontend',
       'PriorityInbox',

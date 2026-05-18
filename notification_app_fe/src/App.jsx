@@ -20,7 +20,6 @@ import NotificationFilter from './components/NotificationFilter';
 import { fetchNotifications, setAuthToken } from './services/notificationService';
 import { LogInfo, LogError, LogDebug } from './utils/logger';
 
-// Create custom Material UI theme
 const theme = createTheme({
   palette: {
     primary: {
@@ -53,7 +52,6 @@ function App() {
   const [error, setError] = useState(null);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' });
 
-  // Fetch notifications on mount
   useEffect(() => {
     loadNotifications();
   }, []);

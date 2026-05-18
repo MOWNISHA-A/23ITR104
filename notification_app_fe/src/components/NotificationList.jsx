@@ -1,9 +1,4 @@
-/**
- * NotificationList Component
- * Displays all notifications with optional filtering
- */
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -32,7 +27,7 @@ export default function NotificationList({
 
   const stats = getNotificationStats(notifications);
 
-  React.useEffect(() => {
+  useEffect(() => {
     LogDebug(
       'frontend',
       'NotificationList',
