@@ -51,10 +51,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' });
+  const [useMock, setUseMock] = useState(false);
 
   useEffect(() => {
     loadNotifications();
-  }, []);
+  }, [useMock]);
 
   const loadNotifications = async () => {
     try {
@@ -62,7 +63,7 @@ function App() {
       setError(null);
       LogInfo('frontend', 'App', 'Starting notification fetch...');
 
-      const data = await fetchNotifications();
+      const data = await fetchNotifications({}, { useMock });
       setNotifications(data);
 
       LogInfo('frontend', 'App', `Successfully loaded ${data.length} notifications`);
@@ -93,6 +94,11 @@ function App() {
     setAuthToken(token);
     LogInfo('frontend', 'App', 'API token configured, reloading notifications...');
     loadNotifications();
+  };
+
+  const handleUseMockChange = (enabled) => {
+    setUseMock(enabled);
+    showSnackbar(enabled ? 'Mock data enabled' : 'Mock data disabled', 'info');
   };
 
   const showSnackbar = (message, severity = 'info') => {
@@ -140,6 +146,7 @@ function App() {
                   viewStatus={viewStatus}
                   onViewStatusChange={handleViewStatusChange}
                   onAuthTokenSubmit={handleAuthTokenSubmit}
+                  onUseMockChange={handleUseMockChange}
                 />
               </Box>
             </Grid>

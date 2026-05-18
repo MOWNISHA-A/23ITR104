@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { LogInfo, LogError, LogDebug } from '../utils/logger';
+import MOCK_NOTIFICATIONS from '../utils/mockNotifications';
 
 const API_BASE_URL = 'http://4.224.186.213/evaluation-service';
 
@@ -11,7 +12,13 @@ const apiClient = axios.create({
   }
 });
 
-export async function fetchNotifications(filters = {}) {
+export async function fetchNotifications(filters = {}, options = { useMock: false }) {
+  if (options.useMock) {
+    LogInfo('frontend', 'NotificationService', 'Returning mock notifications (useMock=true)');
+    // simulate async
+    return new Promise((resolve) => setTimeout(() => resolve(MOCK_NOTIFICATIONS), 250));
+  }
+
   try {
     LogInfo('frontend', 'NotificationService', 'Starting API request to fetch notifications');
 

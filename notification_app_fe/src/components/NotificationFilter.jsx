@@ -22,10 +22,12 @@ export default function NotificationFilter({
   onTypeChange,
   viewStatus,
   onViewStatusChange,
-  onAuthTokenSubmit
+  onAuthTokenSubmit,
+  onUseMockChange
 }) {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [token, setToken] = React.useState('');
+  const [mockEnabled, setMockEnabled] = React.useState(false);
 
   const handleTypeChange = (event, newType) => {
     LogInfo('frontend', 'NotificationFilter', `User changed type filter to: ${newType}`);
@@ -44,6 +46,13 @@ export default function NotificationFilter({
       setToken('');
       setOpenDialog(false);
     }
+  };
+
+  const toggleMock = () => {
+    const next = !mockEnabled;
+    setMockEnabled(next);
+    LogInfo('frontend', 'NotificationFilter', `Mock mode ${next ? 'enabled' : 'disabled'}`);
+    if (onUseMockChange) onUseMockChange(next);
   };
 
   return (
@@ -115,6 +124,15 @@ export default function NotificationFilter({
             sx={{ textTransform: 'none' }}
           >
             🔐 Configure API Token
+          </Button>
+          <Button
+            variant={mockEnabled ? 'contained' : 'text'}
+            color={mockEnabled ? 'secondary' : 'inherit'}
+            size="small"
+            onClick={toggleMock}
+            sx={{ textTransform: 'none' }}
+          >
+            {mockEnabled ? 'Using Mock Data' : 'Use Mock Data'}
           </Button>
         </Stack>
       </CardContent>
