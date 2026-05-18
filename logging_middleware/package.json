@@ -1,0 +1,13 @@
+{
+  "name": "notification-logging-middleware",
+  "version": "1.0.0",
+  "description": "Reusable logging middleware for notification system",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "dependencies": {
+    "axios": "^1.16.1"
+  }
+}
